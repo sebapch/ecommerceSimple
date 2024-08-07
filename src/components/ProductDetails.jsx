@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate  } from "react-router-dom";
 import axios from "axios";
 
 function ProductDetails() {
   const { productId } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [selectedSku, setSelectedSku] = useState(null);
   const [stockPrice, setStockPrice] = useState(null);
@@ -82,20 +83,12 @@ function ProductDetails() {
     <div className=" max-w-md mx-auto overflow-hidden text-left">
       <div className="p-4">
         <div className="flex items-center mb-4">
-          <button className="text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
+        <button 
+            className="text-gray-600" 
+            onClick={() => navigate('/products')} // Navegar a la ruta /products
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
           </button>
           <h1 className="text-xl font-semibold ml-4">Detail</h1>
