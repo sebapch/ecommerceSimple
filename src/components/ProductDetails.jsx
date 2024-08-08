@@ -89,9 +89,9 @@ function ProductDetails() {
     );
 
   return (
-    <div className=" max-w-md mx-auto overflow-hidden text-left min-h-screen flex ">
-      <div className="p-8 flex flex-col justify-between">
-        <div className="flex items-center mb-4">
+    <div className="max-w-md mx-auto text-left min-h-screen flex ">
+      <div className="flex flex-col justify-between">
+        <div className="flex items-center mb-4 p-8 ">
         <button 
             className="text-gray-600" 
             onClick={() => navigate('/products')} // Navegar a la ruta /products
@@ -130,7 +130,7 @@ function ProductDetails() {
             }}
           />
         </div>
-        <div className="bg-white rounded-t-lg py-4">
+        <div className="bg-white rounded-t-lg p-8 ">
          
           <div className="mb-4">
             <div className="flex justify-between items-center mt-1">
