@@ -42,24 +42,24 @@ function ProductList() {
   
 
   return (
-    <div className=" p-4">
+    <div className=" p-4 max-w-md mx-auto overflow-hidden min-h-screen flex flex-col">
     <div className="flex justify-between mb-4">
-      <button className="text-2xl">☰</button>
+      <button className="text-2xl px-4">☰</button>
       <img src='/icons/profile.jpg' className="w-10 h-10 bg-gray-300 rounded-full"/>
     </div>
     <div className='px-4'>
 
-    <h2 className="text-gray-500  mb-1 text-left">Hi Mr. Michael,</h2>
-    <h1 className="text-2xl font-bold mb-4 text-left">Welcome Back!</h1>
+    <h2 className="text-secondary  mb-1 text-left">Hi Mr. Michael,</h2>
+    <h1 className="text-2xl font-bold mb-4 text-left text-darkGray">Welcome Back!</h1>
     
-    <h3 className="text-xl font-semibold mb-4 text-left">Our Products</h3>
+    <h3 className="text-xl font-semibold mb-4 text-left text-darkGray">Our Products</h3>
     </div>
 
-    <div className="grid grid-cols-2 gap-4 p-4">
+    <div className="grid grid-cols-2 gap-5 p-4">
         {products.map(product => (
           <div key={product.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="">
-              <h2 className="text-xl text-gray-800 font-semibold mb-2">{product.brand}</h2>
+              <h2 className="text-lg text-darkGray font-medium mb-2">{product.brand}</h2>
               <img 
                 src={product.image} 
                 alt={product.brand} 
@@ -70,7 +70,7 @@ function ProductList() {
                 }}
               />
               <div className="flex justify-between items-center">
-                <span className="text-xl font-semibold px-4 "> {prices[product.id] ? `$${prices[product.id].toFixed(2)}` : 'Loading...'}</span>
+                <span className="text-xl font-semibold px-4 text-darkGray"> {prices[product.id] ? `$${prices[product.id].toFixed(2)}` : 'Loading...'}</span>
                 <Link 
                   to={`/product/${product.id}-${product.brand.toLowerCase().replace(/\s+/g, '-')}`}
                   className="w-12 h-12"

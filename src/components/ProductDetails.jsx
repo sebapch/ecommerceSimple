@@ -17,7 +17,14 @@ function ProductDetails() {
         const foundProduct = response.data.find(
           (p) => p.id === parseInt(productId)
         );
-        console.log(foundProduct);
+        if (foundProduct) {
+          const imageUrl = foundProduct.image;
+          const extension = imageUrl.substring(imageUrl.lastIndexOf('.') + 1);
+          if (extension === 'jpg' || extension === 'jpeg') {
+            const fileName = imageUrl.substring(imageUrl.lastIndexOf('/') + 1, imageUrl.lastIndexOf('.'));
+            foundProduct.image = `/icons/${fileName}.png`;
+          }
+        }
         setProduct(foundProduct);
         if (foundProduct && foundProduct.skus.length > 0) {
           setSelectedSku(foundProduct.skus[0].code);
@@ -72,6 +79,8 @@ function ProductDetails() {
     return words.slice(0, maxWords).join(" ") + "...";
   };
 
+  
+
   if (!product)
     return (
       <div className="flex justify-center items-center h-screen">
@@ -80,8 +89,8 @@ function ProductDetails() {
     );
 
   return (
-    <div className=" max-w-md mx-auto overflow-hidden text-left">
-      <div className="p-4">
+    <div className=" max-w-md mx-auto overflow-hidden text-left min-h-screen flex ">
+      <div className="p-8 flex flex-col justify-between">
         <div className="flex items-center mb-4">
         <button 
             className="text-gray-600" 
@@ -110,37 +119,37 @@ function ProductDetails() {
           </button>
         </div>
 
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center ">
           <img
             src={product.image}
             alt={product.brand}
-            className="h-48 object-contain"
+            className="h-40 object-contain"
             onError={(e) => {
               e.target.onerror = null;
               e.target.src = "/public/products/placeholder.png";
             }}
           />
         </div>
-        <div className="bg-white rounded-t-lg">
+        <div className="bg-white rounded-t-lg py-4">
          
           <div className="mb-4">
             <div className="flex justify-between items-center mt-1">
               <h2 className="text-xl font-semibold ">{product.brand}</h2>
-              <p className="text-xl font-bold text-orange-500">
+              <p className="text-xl font-bold text-primary">
                 ${(stockPrice?.price / 100 || 0).toFixed(2)}
               </p>
             </div>
-            <p className="text-sm text-gray-600 ">
+            <p className="text-sm text-secondary ">
               Origin: Import | Stock: {stockPrice?.stock || "N/A"}
             </p>
           </div>
           <div className="mb-4">
             <h3 className="font-semibold mb-2">Description</h3>
             <div>
-              <p className="text-sm text-gray-600">{renderDescription()}</p>
+              <p className="text-sm text-secondary">{renderDescription()}</p>
               {product.information.split(" ").length > 40 && (
                 <button
-                  className="text-orange-500 text-sm mt-1"
+                  className="text-primary text-sm mt-1"
                   onClick={() => setShowFullDescription(!showFullDescription)}
                 >
                   {showFullDescription ? "Show less" : "Read more"}
@@ -157,8 +166,8 @@ function ProductDetails() {
                   onClick={() => setSelectedSku(sku.code)}
                   className={`px-4 py-2 rounded-full text-sm ${
                     selectedSku === sku.code
-                      ? "border border-orange-500  text-orange-500"
-                      : "border  border-gray-400 text-gray-400"
+                      ? "border border-primary  text-primary"
+                      : "border  border-secondary text-secondary"
                   }`}
                 >
                   {sku.name}
@@ -167,10 +176,10 @@ function ProductDetails() {
             </div>
           </div>
           <div className="flex items-center">
-            <button className="p-2 border border-orange-500 rounded-lg mr-4">
+            <button className="p-2 border border-primary rounded-lg mr-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-orange-500"
+                className="h-6 w-6 text-primary"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -185,7 +194,7 @@ function ProductDetails() {
             </button>
             <button
               onClick={handleAddToCart}
-              className="flex-1 bg-orange-500 text-white py-3 rounded-lg font-semibold"
+              className="flex-1 bg-primary text-white p-2 border-1  rounded-lg font-semibold"
             >
               Add to cart
             </button>
